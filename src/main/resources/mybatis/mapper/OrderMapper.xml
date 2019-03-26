@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisdom.framework.sharding.mapper.OrderMapper">
+
+    <resultMap id="result" type="com.wisdom.framework.sharding.entity.Order">
+        <id column="order_id" property="orderId" javaType="java.lang.Long"/>
+        <result column="date_time" property="dateTime" javaType="java.lang.String"/>
+        <result column="status" property="status" javaType="java.lang.String"/>
+    </resultMap>
+
+    <select id="selectByDateBetween" resultType="com.wisdom.framework.sharding.entity.Order">
+        SELECT * FROM t_order WHERE date_time BETWEEN #{start_date, jdbcType=VARCHAR} AND #{end_date, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertOrder" parameterType="com.wisdom.framework.sharding.entity.Order">
+        INSERT INTO t_order (order_id, date_time, status) VALUES (#{orderId},#{dateTime},#{status})
+    </insert>
+</mapper>
