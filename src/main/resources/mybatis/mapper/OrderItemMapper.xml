@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wisdom.framework.sharding.mapper.OrderItemMapper">
+
+    <resultMap id="result" type="com.wisdom.framework.sharding.entity.OrderItem">
+        <id column="order_item_id" property="orderItemId" javaType="java.lang.Long"/>
+        <id column="order_id" property="orderId" javaType="java.lang.Long"/>
+        <result column="date_time" property="date" javaType="java.lang.String"/>
+        <result column="status" property="status" javaType="java.lang.String"/>
+    </resultMap>
+
+    <insert id="insertOrderItem" parameterType="com.wisdom.framework.sharding.entity.OrderItem" keyProperty="orderItemId" useGeneratedKeys="true">
+        INSERT INTO t_order_item ( order_id,date_time, status) VALUES (#{orderId},#{date},#{status})
+    </insert>
+</mapper>
