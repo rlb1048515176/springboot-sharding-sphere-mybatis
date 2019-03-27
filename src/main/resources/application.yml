@@ -1,9 +1,0 @@
-server:
-  port: 9001
-spring:
-  profiles:
-    active: sharding,master_slave
-#mybatis:
-#  configLocation: classpath:mybatis/mybatis-config.xml
-#  mapperLocations: classpath:mybatis/mapper/*.xml
-#  type-aliases-package: com.wisdom.framework.sharding.entity
