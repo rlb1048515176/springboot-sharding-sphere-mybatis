@@ -1,0 +1,105 @@
+sharding:
+    jdbc:
+        config:
+            props:
+                sql:
+                    show: true
+            sharding:
+                default-database-strategy:
+                    inline:
+                        algorithm-expression: master$->{id % 2}
+                        sharding-column: id
+                master-slave-rules:
+                    ds0:
+                        master-data-source-name: master0
+                        slave-data-source-names: master0slave0
+                    ds1:
+                        master-data-source-name: master1
+                        slave-data-source-names: master1slave0
+                tables:
+                    t_order:
+                        actual-data-nodes: ds$->{0..1}.t_order_$->{2016..2019}
+                        key-generator-column-name: order_id
+                        key-generator-class-name: com.wisdom.framework.sharding.config.sharding.key.CustomSnowflakeKeyGenerator
+                        database-strategy:
+                            standard:
+                                sharding-column: order_id
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBasePreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBaseRangeShardingAlgorithm
+                        table-strategy:
+#                            inline:
+#                                algorithm-expression: user_action_log_id$->{id % 2}
+#                                sharding-column: id
+                            standard:
+                                sharding-column: date_time
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdPreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdRangeShardingAlgorithm
+                    t_order_item:
+                        actual-data-nodes: ds${0..1}.t_order_item_${2016..2019}
+                        key-generator-column-name: order_item_id
+                        key-generator-class-name: com.wisdom.framework.sharding.config.sharding.key.CustomSnowflakeKeyGenerator
+                        database-strategy:
+                            standard:
+                                sharding-column: order_id
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBasePreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBaseRangeShardingAlgorithm
+                        table-strategy:
+    #                            hint:
+    #                                algorithm-class-name:
+    #                            inline:
+    #                                algorithm-expression: user_action_log_id$->{id % 2}
+    #                                sharding-column: id
+                            standard:
+                                sharding-column: date_time
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdPreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdRangeShardingAlgorithm
+                binding-table-rules:
+                    t_order_item:
+                        actual-data-nodes: ds${0..1}.t_order_item_${2016..2019}
+                        key-generator-column-name: order_item_id
+                        key-generator-class-name: com.wisdom.framework.sharding.config.sharding.key.CustomSnowflakeKeyGenerator
+                        database-strategy:
+                            standard:
+                                sharding-column: order_item_id
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBasePreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.dataBase.WsdDataBaseRangeShardingAlgorithm
+                        table-strategy:
+#                            hint:
+#                                algorithm-class-name:
+#                            inline:
+#                                algorithm-expression: user_action_log_id$->{id % 2}
+#                                sharding-column: id
+                            standard:
+                                sharding-column: date_time
+                                precise-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdPreciseShardingAlgorithm
+                                range-algorithm-class-name: com.wisdom.framework.sharding.algorithm.WsdRangeShardingAlgorithm
+                binding-tables: t_order,t_order_item
+#                broadcast-tables: t_code
+        datasource:
+            master0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: wisdom_123
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://192.168.160.217:3301/sharding_message?characterEncoding=UTF-8&useSSL=false
+                username: root
+            master0slave0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: wisdom_123
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://192.168.160.217:3302/sharding_message?characterEncoding=UTF-8&useSSL=false
+                username: root
+            master1:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: wisdom_123
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://192.168.160.217:3301/sharding_message_1?characterEncoding=UTF-8&useSSL=false
+                username: root
+            master1slave0:
+                driver-class-name: com.mysql.jdbc.Driver
+                password: wisdom_123
+                type: com.alibaba.druid.pool.DruidDataSource
+                url: jdbc:mysql://192.168.160.217:3302/sharding_message_1?characterEncoding=UTF-8&useSSL=false
+                username: root
+            names: master0,master1,master0slave0,master1slave0
+            props:
+                sql.show: true

@@ -1,0 +1,26 @@
+wsdDataSourceList:
+  type: com.alibaba.druid.pool.DruidDataSource
+  dataSources[0]:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.160.217:3301/sharding_message?characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: wisdom_123
+    dataSourceName: ds_0
+    slaveWsdDataSource[0]:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.160.217:3302/sharding_message?characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: wisdom_123
+      dataSourceName: ds_0_salve_0
+  dataSources[1]:
+      driverClassName: com.mysql.jdbc.Driver
+      url: jdbc:mysql://192.168.160.217:3301/sharding_message_1?characterEncoding=UTF-8&useSSL=false
+      username: root
+      password: wisdom_123
+      dataSourceName: ds_1
+      slaveWsdDataSource[0]:
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://192.168.160.217:3302/sharding_message_1?characterEncoding=UTF-8&useSSL=false
+        username: root
+        password: wisdom_123
+        dataSourceName: ds_1_salve_0
