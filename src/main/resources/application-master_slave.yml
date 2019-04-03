@@ -78,28 +78,28 @@ sharding:
         datasource:
             master0:
                 driver-class-name: com.mysql.jdbc.Driver
-                password: wisdom_123
+                password: 
                 type: com.alibaba.druid.pool.DruidDataSource
                 url: jdbc:mysql://192.168.160.217:3301/sharding_message?characterEncoding=UTF-8&useSSL=false
-                username: root
+                username: 
             master0slave0:
                 driver-class-name: com.mysql.jdbc.Driver
-                password: wisdom_123
+                password: 
                 type: com.alibaba.druid.pool.DruidDataSource
                 url: jdbc:mysql://192.168.160.217:3302/sharding_message?characterEncoding=UTF-8&useSSL=false
-                username: root
+                username: 
             master1:
                 driver-class-name: com.mysql.jdbc.Driver
-                password: wisdom_123
+                password: 
                 type: com.alibaba.druid.pool.DruidDataSource
                 url: jdbc:mysql://192.168.160.217:3301/sharding_message_1?characterEncoding=UTF-8&useSSL=false
-                username: root
+                username: 
             master1slave0:
                 driver-class-name: com.mysql.jdbc.Driver
-                password: wisdom_123
+                password: 
                 type: com.alibaba.druid.pool.DruidDataSource
                 url: jdbc:mysql://192.168.160.217:3302/sharding_message_1?characterEncoding=UTF-8&useSSL=false
-                username: root
+                username: 
             names: master0,master1,master0slave0,master1slave0
             props:
                 sql.show: true
